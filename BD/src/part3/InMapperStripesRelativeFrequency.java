@@ -4,6 +4,7 @@ package part3;
 
         
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map.Entry;
 
 import org.apache.hadoop.conf.Configuration;
@@ -23,29 +24,58 @@ import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
 import common.MyMapWritable;
 import common.Neighbors;
+import common.PairWritableComparable;
         
-public class StripesRelativeFrequency {
+public class InMapperStripesRelativeFrequency {
         
  public static class Map extends Mapper<LongWritable, Text, Text, MyMapWritable> {
     private final static IntWritable one = new IntWritable(1);
     
+    private java.util.Map<Text, MyMapWritable> map ;
+       
     @Override
+	protected void cleanup(
+			Mapper<LongWritable, Text, Text, MyMapWritable>.Context context)
+			throws IOException, InterruptedException {
+		// TODO Auto-generated method stub
+		super.cleanup(context);
+		 
+		for(Entry<Text, MyMapWritable> e : map.entrySet()){
+			context.write(e.getKey(), e.getValue());
+		}
+		
+	}
+
+
+
+	@Override
+	protected void setup(
+			Mapper<LongWritable, Text, Text, MyMapWritable>.Context context)
+			throws IOException, InterruptedException {
+		// TODO Auto-generated method stub
+		super.setup(context);
+		map = new HashMap<>();
+	}
+
+
+
+	@Override
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String[] items = value.toString().split(" ");
         for( int i=0; i< items.length; i++){
         	Text w = new Text(items[i]);
-        	MyMapWritable map = new MyMapWritable();
+        	if(!this.map.containsKey(w)){
+        		this.map.put(w, new MyMapWritable());
+        	}
         	for(String u : Neighbors.neighbors(items, i)){   
         		Text k = new Text(u);
-        		if(!map.containsKey(k)){
-        			map.put(k, one);
+        		if(!this.map.get(w).containsKey(k)){
+        			this.map.get(w).put(k, one);
         		}else{
-        			IntWritable v= (IntWritable)map.get(k);
-        			map.put(k, new IntWritable(v.get()+1));
-        		}
-        		 
-        	}        	
-        	context.write(w, map);
+        			IntWritable v= (IntWritable)this.map.get(w).get(k);
+        			this.map.get(w).put(k, new IntWritable(v.get()+1));
+        		}        		 
+        	} 
         }
     }
  } 
@@ -62,7 +92,6 @@ public class StripesRelativeFrequency {
             	 Text k = (Text)e.getKey();    
             	 IntWritable v= (IntWritable)e.getValue();
             	 sum += v.get();
-            	 
             	 if(!map.containsKey(k)){
          			map.put(k, v);
          		}else{
@@ -85,7 +114,7 @@ public class StripesRelativeFrequency {
     Configuration conf = new Configuration();
         
         Job job = new Job(conf, "StripesRelativeFrequency");
-        job.setJarByClass(StripesRelativeFrequency.class);
+        job.setJarByClass(InMapperStripesRelativeFrequency.class);
         
         job.setNumReduceTasks(1);
 
