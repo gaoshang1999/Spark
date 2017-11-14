@@ -31,7 +31,7 @@ public class StripesRelativeFrequency {
     
     @Override
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        String[] items = value.toString().split(" ");
+        String[] items = value.toString().split(" |\t");
         for( int i=0; i< items.length; i++){
         	Text w = new Text(items[i]);
         	MyMapWritable map = new MyMapWritable();

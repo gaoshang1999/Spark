@@ -61,7 +61,7 @@ public class InMapperStripesRelativeFrequency {
 
 	@Override
     public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
-        String[] items = value.toString().split(" ");
+        String[] items = value.toString().split(" |\t");
         for( int i=0; i< items.length; i++){
         	Text w = new Text(items[i]);
         	if(!this.map.containsKey(w)){
@@ -113,7 +113,7 @@ public class InMapperStripesRelativeFrequency {
  public static void main(String[] args) throws Exception {
     Configuration conf = new Configuration();
         
-        Job job = new Job(conf, "StripesRelativeFrequency");
+        Job job = new Job(conf, "InMapperStripesRelativeFrequency");
         job.setJarByClass(InMapperStripesRelativeFrequency.class);
         
         job.setNumReduceTasks(1);
