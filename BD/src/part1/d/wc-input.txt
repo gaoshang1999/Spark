@@ -1,0 +1,72 @@
+reated by 
+Utsav Pokhrel 
+Date created 
+Oct 27, 2017 4:36 pm 
+Open 
+Nov 13, 2017 10:00 am 
+Due 
+Nov 16, 2017 10:00 am 
+Accept Until 
+Nov 16, 2017 10:00 am 
+Modified by instructor 
+Nov 13, 2017 9:22 am 
+Group Submission 
+No 
+For 
+Entire Site 
+Student Submissions 
+Inline and Attachments 
+Number of resubmissions allowed 
+Unlimited 
+Accept Resubmission Until 
+Nov 16, 2017 10:00 am 
+Grade 
+Points (max 14.0) 
+Add due date to calendar 
+No 
+Alert: 
+No 
+Honor pledge: 
+No 
+Assignment Instructions 
+In this project you will create a crystal ball to predict events that may happen once a certain event happened.
+ 
+Example: Amazon will say people who bought “item one” have bought the following items : “item two”, “item three”, “item four”.
+ 
+For the purpose of this project you can assume that historical customer data is available in the following form. Each record contains the product IDs of all the product bought by one customer.
+ 
+B12 C31 D76 A12 B76 B12 D76 C31 A10 B12 D76      // items bought by a customer, listed in the order she bought it
+C31 D76 B12 A12 C31 D76 B12  A12 D76 A12 D76 // items bought by another customer, listed in the order she bought it
+…
+Let the neighborhood of X, N(X) be set of all term after X and before the next X.
+Example: Let Data block be [a b c a d e]
+N(a) = {b, c}, N(b) = {c, a, d, e}, N(c) = {a, d, e}, N(a) ={d, e}, N(d) = {e}, N(e) = {}.
+ 
+Part 1. [2 points]  Set up a single node cluster and optionally an eclipse development environment to create and test your programs. 
+(a) Get VMWare or VirtualBox (install)
+(b) Get Cloudera (install)
+(c) Get WordCount (test run)
+(d) Modify WordCount to InMapperWordCount and test run                                                     
+(e) Implement Average Computation Algorithm to compute the average of the "last quantity" in a Apache log file for each ip address ("the first quantity). 
+64.242.88.10 - - [07/Mar/2004:16:11:58 -0800] "GET /twiki/bin/view/TWiki/WikiSyntax HTTP/1.1" 200 7352
+Use the data file attached.       
+(f) Implement the in-mapper combining version of the Average Computation Algorithm to compute the average of the "last quantity" in a Apache log file for each ip address ("the first quantity). 
+64.242.88.10 - - [07/Mar/2004:16:11:58 -0800] "GET /twiki/bin/view/TWiki/WikiSyntax HTTP/1.1" 200 7352
+Use the data attached.          
+Document all the steps from (a) to (c) and submit. It should be as detailed as the sample document attached.
+For (d), (e) and (f) you must submit java files, input files, output files.
+If the detailed document is not there, the credit will be 0 for Part 1.
+Part 2. Implement Pairs algorithms (with and without In-mapper Combining) to compute relative frequencies.
+[3 points] Create Java classes (.java files)
+[1 points] Show input, output and batch file to execute your program at command line in Hadoop.
+Part 3. Implement Stripes algorithm (with and without In-mapper Combining) to compute relative frequencies.
+[3 points] Create Java classes (.java files)
+[1 points] Show input, output and batch file to execute your program at command line in Hadoop.
+Part 4. Implement Pairs in Mapper and Stripes in Reducer to compute relative frequencies. You must implement both versions (with and without In-mapper Combining).
+[3 points] Create Java classes (.java files)
+[1 points] Show input, output and batch file to execute your program at command line in Hadoop.
+YOUR MUST SUBMIT SHOW YOUR WORK TO THE TA AFTER EACH STEP.
+ONE SUBMISSION PER GROUP.
+ 
+ 
+Additional resources for assignment 
