@@ -66,20 +66,19 @@ public class InMapperPairsRelativeFrequency {
 //        		context.write(new PairWritableComparable(new Text(w), PairWritableComparable.STAR_4_Order_Inversion), one);
         		
         		PairWritableComparable key1 = new PairWritableComparable(new Text(w), new Text(u));
-        		if(!map.containsKey(key1)){
-                 	map.put(key1, one);
-                 }else{
-                	IntWritable val = map.get(key1);
-                 	map.put(key1,  new IntWritable( val.get() + 1) );
-                 }
-        		
         		PairWritableComparable key2 = new PairWritableComparable(new Text(w), PairWritableComparable.STAR_4_Order_Inversion);
-        		if(!map.containsKey(key2)){
-                 	map.put(key2, one);
-                 }else{
-                	IntWritable val = map.get(key2);
-                 	map.put(key2,  new IntWritable( val.get() + 1) );
-                 }        		
+        		
+        		PairWritableComparable[] keys = new PairWritableComparable[]{key1, key2};
+        		
+        		for(PairWritableComparable k : keys){
+	        		if(!map.containsKey(k)){
+	                 	map.put(k, one);
+	                 }else{
+	                	IntWritable val = map.get(k);
+	                 	map.put(k,  new IntWritable( val.get() + 1) );
+	                 }
+        		}
+      		
         	}        	
         }
     }
