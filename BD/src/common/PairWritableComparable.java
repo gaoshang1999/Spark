@@ -41,7 +41,7 @@ public class PairWritableComparable implements WritableComparable<PairWritableCo
 		if(dif != 0){
 			return dif;
 		}		
-		if(this.second.equals(STAR_4_Order_Inversion) && !o.second.equals(STAR_4_Order_Inversion)){
+		if(this.second.equals(STAR_4_Order_Inversion) && ! o.second.equals(STAR_4_Order_Inversion)){
 			return -1;
 		}
 		return this.second.compareTo(o.second);
