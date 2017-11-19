@@ -1,11 +1,10 @@
-package mum.myspark
+
 
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
-import java.util.regex.Matcher
-import java.util.regex.Pattern
 import java.io.File
 import org.apache.commons.io.FileUtils
+import org.apache.spark.rdd.RDD.rddToPairRDDFunctions
 
 
 
@@ -14,7 +13,7 @@ object IPCountOfLog extends App{
     val conf = new SparkConf().setAppName("IPCountOfLog").setMaster("local")
     val sc = new SparkContext(conf)
 
-    var file = sc.textFile("file:///home/cloudera/access_log_input")
+    var file = sc.textFile("file:///home/cloudera/access_log")
 
     var h = file.map( line => (getIp(line), 1) ).reduceByKey(_ + _).sortBy(_._2, false)
     

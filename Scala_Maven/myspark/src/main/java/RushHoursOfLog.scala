@@ -1,30 +1,27 @@
-package mum.myspark
-
 import org.apache.spark.SparkConf
 import org.apache.spark.SparkContext
-import java.util.regex.Matcher
 import java.util.regex.Pattern
 import java.io.File
 import org.apache.commons.io.FileUtils
-
-
+import org.apache.spark.rdd.RDD.rddToPairRDDFunctions
+import java.io.PrintWriter
 
 object RushHoursOfLog extends App{
   override def main(args: Array[String]) {
     val conf = new SparkConf().setAppName("RushHoursOfLog").setMaster("local")
     val sc = new SparkContext(conf)
 
-    var file = sc.textFile("file:///home/cloudera/access_log_input")
+    var file = sc.textFile("file:///home/cloudera/access_log")
 
     var h = file.map( line => (getHour(line), 1) ).reduceByKey(_ + _).sortBy(_._2, false)
     
-    var f = new String("/home/cloudera/rush_hour_of_log_output")    
-    FileUtils.deleteDirectory(new File(f))
+    var f = new File("rush_hour_of_log_output.txt")     
+    val writer = new PrintWriter(f)
+     
+    val res = h.collect()
+    for (n <- res) writer.println(n.toString())
 
-    
-    h.saveAsTextFile("file://" + f)
-    h.foreach(println)
-    
+    writer.close()
   }
 
   def getHour(line: String): String = {
